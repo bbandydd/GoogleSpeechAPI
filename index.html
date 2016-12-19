@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech</title>
+</head>
+<body>
+    <div id="show"></div>
+    <script>
+        const recognition = new webkitSpeechRecognition();
+
+        recognition.continuous=true;
+        recognition.interimResults=true;
+        recognition.lang="cmn-Hant-TW";
+
+        recognition.onstart=function(){
+            console.log('開始辨識...');
+        };
+
+        recognition.onend=function(){
+            console.log('停止辨識!');
+        };
+
+        recognition.onresult=function(event){
+            const i = event.resultIndex;
+            const j = event.results[i].length - 1;
+
+            // 確定講完才將字顯示
+            // const isFinal = event.results[i].isFinal;
+
+            // if (isFinal) {
+            //     const result = event.results[i][j].transcript;
+
+            //     if (result == '哈囉') { // 根據字去做對應的動作
+            //         alert('123')
+            //     }
+
+            //     show.innerHTML += result;
+            // }
+
+            const result = event.results[i][j].transcript;
+            show.innerHTML = result;
+
+        };
+
+        recognition.start();     
+    </script>
+</body>
+</html>
