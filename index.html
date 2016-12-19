@@ -5,7 +5,10 @@
     <title>Speech</title>
 </head>
 <body>
-    <div id="show"></div>
+    <p>辨識中：</p>
+    <div id="div1"></div>
+    <p>辨識結果：</p>
+    <div id="div2"></div>
     <script>
         const recognition = new webkitSpeechRecognition();
 
@@ -24,23 +27,14 @@
         recognition.onresult=function(event){
             const i = event.resultIndex;
             const j = event.results[i].length - 1;
-
-            // 確定講完才將字顯示
-            // const isFinal = event.results[i].isFinal;
-
-            // if (isFinal) {
-            //     const result = event.results[i][j].transcript;
-
-            //     if (result == '哈囉') { // 根據字去做對應的動作
-            //         alert('123')
-            //     }
-
-            //     show.innerHTML += result;
-            // }
-
+            const isFinal = event.results[i].isFinal;
             const result = event.results[i][j].transcript;
-            show.innerHTML = result;
 
+            div1.innerHTML = result;
+
+            if (isFinal) {
+                div2.innerHTML += result;
+            }
         };
 
         recognition.start();     
